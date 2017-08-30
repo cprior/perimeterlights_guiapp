@@ -14,7 +14,7 @@ import { SettingsProvider } from '../providers/settings/settings';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any = SettingsPage;
   selectedTheme: String;
 
   pages: Array<{title: string, component: any}>;

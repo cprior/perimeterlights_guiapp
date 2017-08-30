@@ -5,11 +5,67 @@
       </button>
       <ion-title>Settings</ion-title>
     </ion-navbar>
-  </ion-header>
+</ion-header>
 
-  <ion-content padding>
+<ion-content padding>
+
   <button ion-button full icon-left (click)="toggleAppTheme()">
     <ion-icon name="bulb"></ion-icon>Toggle Theme
   </button>
+
+  <form (submit)="saveSettings()">
+    <ion-list>
+        <ion-item>
+            <ion-label fixed>endpointurl</ion-label>
+            <ion-input type="text" [(ngModel)]="settingsitems.endpointurl" name="endpointurl"></ion-input>
+          </ion-item>
+          <ion-item>
+              <ion-label fixed>mqtturl</ion-label>
+              <ion-input type="text" [(ngModel)]="settingsitems.mqtturl" name="mqtturl"></ion-input>
+            </ion-item>
+          <ion-item>
+              <ion-label fixed>foo</ion-label>
+              <ion-input type="text" [(ngModel)]="settingsitems.foo" name="foo"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label fixed>bar</ion-label>
+                <ion-input type="text" [(ngModel)]="settingsitems.bar" name="bar"></ion-input>
+              </ion-item>
+    </ion-list>
+    <div padding>
+        <button ion-button color="primary" block>save</button>
+      </div>
+  </form>
+
+  <button ion-button full icon-left (click)="resetDefaults()">
+      <ion-icon name="bulb"></ion-icon>Reset Defaults
+    </button>
+
+
+    <form [formGroup]="form" *ngIf="settingsReady">
+        <ion-list>
+          <ion-item>
+            <ion-label>one</ion-label>
+            <ion-toggle formControlName="option1"></ion-toggle>
+          </ion-item>
+    
+          <ion-item>
+            <ion-label>two</ion-label>
+            <ion-input formControlName="option2"></ion-input>
+          </ion-item>
+    
+          <ion-item>
+            <ion-label>three</ion-label>
+            <ion-select formControlName="option3">
+              <ion-option value="1" checked="true">1</ion-option>
+              <ion-option value="2">2</ion-option>
+              <ion-option value="3">3</ion-option>
+            </ion-select>
+          </ion-item>
+    
+        </ion-list>
+    
+
+      </form>
 
 </ion-content>
