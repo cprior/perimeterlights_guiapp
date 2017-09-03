@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    <ion-title>Settings</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <button ion-button full icon-left (click)="toggleAppTheme()">
+    <ion-icon name="bulb"></ion-icon>Toggle Theme
+  </button>
+
+  <form [formGroup]="form" *ngIf="settingsReady">
+    <ion-list>
+      <ion-item>
+        <ion-label>night mode</ion-label>
+        <ion-toggle formControlName="isNightMode"></ion-toggle>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>resturl</ion-label>
+        <ion-input formControlName="resturl"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>mqtturl</ion-label>
+        <ion-input formControlName="mqtturl"></ion-input>
+      </ion-item>
+
+    </ion-list>
+
+
+  </form>
+
+</ion-content>
