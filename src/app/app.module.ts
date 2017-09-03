@@ -13,17 +13,11 @@ import { Storage, IonicStorageModule } from '@ionic/storage';
 
 //https://github.com/ionic-team/ionic-starter-super/blob/master/src/app/app.module.ts
 export function provideSettings(storage: Storage) {
-  /**
-   * The Settings provider takes a set of default settings for your app.
-   *
-   * You can add new settings options at any time. Once the settings are saved,
-   * these values will not overwrite the saved values (this can be done manually if desired).
-   */
   return new SettingsProvider(storage, {
-    option1: true,
-    option2: 'Ionitron J. Framework',
-    option3: '3',
-    option4: 'Hello'
+    resturl: 'http://localhost:8081/api/v1/test',
+    mqtturl: 'http://localhost:1883', //8883 MQTT over SSL
+    selectedTheme: 'light-theme',
+    isNightMode: false
   });
 }
 
@@ -51,4 +45,4 @@ export function provideSettings(storage: Storage) {
     { provide: SettingsProvider, useFactory: provideSettings, deps: [Storage] },
   ]
 })
-export class AppModule {}
+export class AppModule { }

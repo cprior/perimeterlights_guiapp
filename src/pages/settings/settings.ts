@@ -13,57 +13,52 @@ export class SettingsPage {
 
   selectedTheme: String;
   //https://github.com/ionic-team/ionic-starter-super/blob/master/src/pages/settings/settings.ts
-  options: any;
+  settingsbag: any;
   settingsReady = false;
   form: FormGroup;
 
-  settingsitems: { endpointurl: string, mqtturl: string, foo: string, bar: string } = {
-    endpointurl: 'http://localhost:8081/api/v1/test',
-    mqtturl: 'http://localhost:8080',
-    foo: 'foo',
-    bar: 'bar'
-  };
-  defaults: { endpointurl: string, mqtturl: string, foo: string, bar: string } = {
-    endpointurl: 'http://localhost:8081/api/v1/test',
-    mqtturl: 'http://localhost:8080',
-    foo: 'foo',
-    bar: 'bar'
-  };
-  
   constructor(public navCtrl: NavController, public navParams: NavParams, public settings: SettingsProvider, public formBuilder: FormBuilder) {
     this.settings.getActiveTheme().subscribe(val => this.selectedTheme = val);
-    console.log(this.defaults);
   }
 
   toggleAppTheme() {
     if (this.selectedTheme === 'dark-theme') {
       this.settings.setActiveTheme('light-theme');
+      //this.form.value.selectedTheme = 'light-theme';
+      this.form.controls['isNightMode'].setValue(false);
     } else {
       this.settings.setActiveTheme('dark-theme');
+      //this.form.value.selectedTheme = 'dark-theme';
+      this.form.controls['isNightMode'].setValue(true);
     }
+    this.settings.save();
   }
-  saveSettings() {
-    console.log(this.settingsitems)
-  }
-  resetDefaults() {
-    console.log(this.defaults)
-  }
-
 
   _buildForm() {
+
     let group: any = {
-      option1: [this.options.option1],
-      option2: [this.options.option2],
-      option3: [this.options.option3]
+      resturl: [this.settingsbag.resturl],
+      mqtturl: [this.settingsbag.mqtturl],
+      selectedTheme: [this.settingsbag.selectedTheme],
+      isNightMode: [this.settingsbag.isNightMode]
     };
 
     this.form = this.formBuilder.group(group);
 
-    // Watch the form for changes, and
+    // Watch the form for changes
     this.form.valueChanges.subscribe((v) => {
+      if (this.form.value.isNightMode === true) {
+        this.settings.setActiveTheme('dark-theme');
+        this.form.value.selectedTheme = 'dark-theme';
+      } else {
+        this.settings.setActiveTheme('light-theme');
+        this.form.value.selectedTheme = 'light-theme';
+      }
       this.settings.merge(this.form.value);
     });
   }
+
+  isChecked() { return true; }
 
   ionViewDidLoad() {
     // Build an empty form for the template to render
@@ -76,14 +71,10 @@ export class SettingsPage {
 
     this.settings.load().then(() => {
       this.settingsReady = true;
-      this.options = this.settings.allSettings;
+      this.settingsbag = this.settings.allSettings;
 
       this._buildForm();
     });
-  }
-
-  ngOnChanges() {
-    console.log('Ng All Changes');
   }
 
 }

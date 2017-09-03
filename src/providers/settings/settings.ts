@@ -16,7 +16,7 @@ export class SettingsProvider {
 
   //https://devdactic.com/dynamic-theming-ionic/
   constructor(public storage: Storage, defaults: any) {
-  //constructor(public storage: Storage) {
+    //constructor(public storage: Storage) {
     this.theme = new BehaviorSubject('light-theme');
     this._defaults = defaults;
   }
@@ -34,6 +34,7 @@ export class SettingsProvider {
     return this.storage.get(this.SETTINGS_KEY).then((value) => {
       if (value) {
         this.settings = value;
+        this.setActiveTheme(this.settings.selectedTheme);
         return this._mergeDefaults(this._defaults);
       } else {
         return this.setAll(this._defaults).then((val) => {
@@ -76,7 +77,6 @@ export class SettingsProvider {
   }
 
   save() {
-    console.log(this.settings)
     return this.setAll(this.settings);
   }
 

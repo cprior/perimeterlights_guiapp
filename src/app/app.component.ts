@@ -17,7 +17,7 @@ export class MyApp {
   rootPage: any = SettingsPage;
   selectedTheme: String;
 
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{ title: string, component: any }>;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private settings: SettingsProvider) {
     this.initializeApp();
@@ -33,10 +33,11 @@ export class MyApp {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-      this.statusBar.styleDefault();
-      this.splashScreen.hide();
+      // https://github.com/ionic-team/ionic/issues/11557
+      if (!document.URL.startsWith('http')) {
+        this.statusBar.styleDefault();
+        this.splashScreen.hide();
+      }
     });
   }
 
