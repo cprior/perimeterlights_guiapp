@@ -5,7 +5,11 @@ import { Network } from '@ionic-native/network';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { LoginPage } from '../pages/login/login';
 import { SettingsPage } from '../pages/settings/settings';
+import { DevicePage } from '../pages/device/device';
+import { DeviceanimationPage } from '../pages/deviceanimation/deviceanimation';
+import { DevicesetupPage } from '../pages/devicesetup/devicesetup';
 import { SettingsProvider } from '../providers/settings/settings';
 import { ConnectivityServiceProvider } from '../providers/connectivity-service/connectivity-service';
 
@@ -27,7 +31,11 @@ export function provideSettings(storage: Storage) {
   declarations: [
     MyApp,
     HomePage,
-    SettingsPage
+    SettingsPage,
+    DevicePage,
+    DeviceanimationPage,
+    DevicesetupPage,
+    LoginPage
   ],
   imports: [
     BrowserModule,
@@ -38,7 +46,11 @@ export function provideSettings(storage: Storage) {
   entryComponents: [
     MyApp,
     HomePage,
-    SettingsPage
+    SettingsPage,
+    DevicePage,
+    DeviceanimationPage,
+    DevicesetupPage,
+    LoginPage
   ],
   providers: [
     StatusBar,
