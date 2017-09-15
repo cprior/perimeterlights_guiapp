@@ -7,6 +7,7 @@ import { HomePage } from '../pages/home/home';
 import { SettingsPage } from '../pages/settings/settings';
 
 import { SettingsProvider } from '../providers/settings/settings';
+import { ConnectivityServiceProvider } from '../providers/connectivity-service/connectivity-service';
 
 @Component({
   templateUrl: 'app.html'
@@ -14,12 +15,16 @@ import { SettingsProvider } from '../providers/settings/settings';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = SettingsPage;
+  rootPage: any = HomePage;
   selectedTheme: String;
 
   pages: Array<{ title: string, component: any }>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private settings: SettingsProvider) {
+  constructor(public platform: Platform,
+    public statusBar: StatusBar,
+    public splashScreen: SplashScreen,
+    private connectivityService: ConnectivityServiceProvider,
+    private settings: SettingsProvider) {
     this.initializeApp();
     this.settings.getActiveTheme().subscribe(val => this.selectedTheme = val);
 
@@ -29,6 +34,8 @@ export class MyApp {
       { title: 'Settings', component: SettingsPage },
     ];
 
+    //this.connectivityService.toastConnectivityChanges();
+    this.connectivityService.monitor();
   }
 
   initializeApp() {

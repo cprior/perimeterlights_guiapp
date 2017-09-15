@@ -1,11 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { Network } from '@ionic-native/network';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { SettingsPage } from '../pages/settings/settings';
 import { SettingsProvider } from '../providers/settings/settings';
+import { ConnectivityServiceProvider } from '../providers/connectivity-service/connectivity-service';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -43,6 +45,8 @@ export function provideSettings(storage: Storage) {
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     { provide: SettingsProvider, useFactory: provideSettings, deps: [Storage] },
+    Network,
+    ConnectivityServiceProvider,
   ]
 })
 export class AppModule { }
